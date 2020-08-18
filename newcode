@@ -1,1 +1,30 @@
+import pickle
+import os
+import sys
 
+def clearscreen():
+	print("\n"*35)
+
+def credits():
+	print("\n
+
+def menuscreen():
+	space = "|" + " "*25 + "|"
+	print("-"*25)
+	print(space)
+	print("| 1)  New Game" + " "*12 + "|")
+	print("|" + " "*25 + "|")
+	print("| 2) Resume Game" + " "*12 + "|")
+	print("|" + " "*25 + "|")
+	print("| 3) Credits" + " "*12 + "|")
+	print("-"*25)
+	
+menuscreen()
+option = input("\n\n")
+while not option in ['1', '2', '3']:
+	print("Invalid Input | Please enter a valid option given")
+	time.sleep(1)
+	print("\n"*3)
+	clearscreen()
+	option = input("\n\n")
+	
