@@ -23,11 +23,13 @@
 
 import sys
 import csv
+import pickle
 import random
 from datetime import datetime
 from time import sleep
 #objects
 dlist = []
+
 
 #game items
 gear_data = {
