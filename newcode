@@ -1,12 +1,29 @@
 import pickle
 import os
 import sys
+import random
+import typing
 
 def clearscreen():
 	print("\n"*35)
+	
+class Player():
+	def __init__(self, hp : int, def : int, attack : int):
+		self.hp = hp
+		self.def = def
+		self.atk = attack
+		self.curhp = hp
+		
+	def dmgtake(self, health : int):
+		self.curhp -= health
+		
+	def dmgdone(self):
+		maxatk = (self.atk*2)//1.5
+		dmgdone = random.randint(self.atk, maxatk)
+		return dmgdone
 
 def credits():
-	print("\n
+	print("\nGame Development: Elston\nDirector: Elston\nScripter: Elston")
 
 def menuscreen():
 	space = "|" + " "*25 + "|"
@@ -19,12 +36,28 @@ def menuscreen():
 	print("| 3) Credits" + " "*12 + "|")
 	print("-"*25)
 	
+bool = os.path.isfile('adventurefile')	
+	
 menuscreen()
 option = input("\n\n")
-while not option in ['1', '2', '3']:
-	print("Invalid Input | Please enter a valid option given")
+while any([
+	not option in ['1', '2', '3'],
+	not bool and option == '2'
+	]):
+	if not bool and option == '2':
+		print("Error | Save file not found.")
+	else:
+		print("Invalid Input | Please enter a valid option given")
 	time.sleep(1)
 	print("\n"*3)
 	clearscreen()
 	option = input("\n\n")
+if option == '1':
+	ver = input("Are you sure you want to create a new game?\nThis might wipe out your existing save files (yes/no)\n")
+	while not ver.lower() in ['yes', 'no']:
+		ver = input("Are you sure you want to create a new game?\nThis might wipe out your existing save files (yes/no)\n")
+	if ver.lower() == 'yes':
+		open('adventurefile', 'w')
+		open('adventurefile
+
 	
