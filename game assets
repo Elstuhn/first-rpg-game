@@ -1,4 +1,5 @@
 #game gear
+#can save time by separating game gear datas as chestplate, leggings, helmet and as separate pieces so that traversing will not be longer
 
 gear_data = {
   'starter sword' : [
