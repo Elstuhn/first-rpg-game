@@ -12,7 +12,12 @@ def clearscreen():
 def savegame():
 	
 def load_game():
-
+	with open(gamefile+'/gear', 'rb') as readfile:
+		pgear = pickle.load(readfile)
+	with open(gamefile+'/inventory', 'rb') as readfile:
+		pinv = pickle.load(readfile)
+	with open(gamefile+'/playerstats', 'rb') as readfile:
+		pstats = pickle.load(readfile)
 
 class Player():
 	def __init__(self, hp : int, def : int, attack : int, dung : list):
@@ -31,6 +36,7 @@ class Player():
 		return dmgdone
 		
 	def dunupdate(self, dungeon_number : int):
+		self.dung.append(dungeon_list[dungeon_number-1])
 	
 
 def credits():
