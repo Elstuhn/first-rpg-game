@@ -33,6 +33,8 @@ gear_data = {
     'attack:15\
      defense:3'
   ]
-
   'iron boot'
 }
+
+#Dungeon List
+dungeonlist = ["The lost pit", "Cave of Horrors", "Divildeia Dungeon", The Dungeon of The Lost Norse Gods", "Dungeon of Nihilveia"]
