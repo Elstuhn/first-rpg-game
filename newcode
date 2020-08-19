@@ -1,11 +1,16 @@
 import pickle
 import os
+import shutil
 import sys
 import random
 import typing
+curdir = os.getcwd()
 
 def clearscreen():
 	print("\n"*35)
+
+def savegame():
+	
 	
 class Player():
 	def __init__(self, hp : int, def : int, attack : int):
@@ -36,7 +41,7 @@ def menuscreen():
 	print("| 3) Credits" + " "*12 + "|")
 	print("-"*25)
 	
-bool = os.path.isfile('adventurefile')	
+bool = os.path.isdir(curdir+'/adventurefile')	
 	
 menuscreen()
 option = input("\n\n")
@@ -55,9 +60,16 @@ while any([
 if option == '1':
 	ver = input("Are you sure you want to create a new game?\nThis might wipe out your existing save files (yes/no)\n")
 	while not ver.lower() in ['yes', 'no']:
-		ver = input("Are you sure you want to create a new game?\nThis might wipe out your existing save files (yes/no)\n")
+		ver = input("Are you sure you want to create a new game?\nThis will wipe out any of your existing save files (yes/no)\n")
 	if ver.lower() == 'yes':
-		open('adventurefile', 'w')
-		open('adventurefile
+		try:
+			os.mkdir(curdir+'/adventurefile')
+		except:
+			shutil.rmtree(curdir+'/adventurefile')
+			os.mkdir(curdir+'/adventurefile')
+	else:	
+		print("\n"*5)
+		menuscreen()
+		option = input("\n\n")
 
 	
