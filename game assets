@@ -1,5 +1,8 @@
 #game gear
-#can save time by separating game gear datas as chestplate, leggings, helmet and as separate pieces so that traversing will not be longer
+'''
+can save time by separating game gear datas as chestplate, leggings, helmet and as separate pieces so that traversing will not be longer
+however, putting all gear in one dictionary helps promote randomness whereas in separating them, the game developer takes most of the control
+```
 
 gear_data = {
   'starter sword' : [
