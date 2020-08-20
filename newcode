@@ -11,6 +11,20 @@ def clearscreen():
 
 def savegame():
 	
+def equip(num):
+#num is the number of the equipment in the inventory
+	try:
+		pinv[num]
+		if not pinv[num] in gear_list:
+			return "Sorry, you cannot equip that!"
+		equipmentid = gear_list[f'{inventory[num]}']
+		for i in pgear:
+			gearid = gear_list[i]
+			
+	except:
+
+		elif not inventory[num] in gear_list 
+	
 def load_game():
 	with open(gamefile+'/gear', 'rb') as readfile:
 		pgear = pickle.load(readfile)
