@@ -39,5 +39,45 @@ gear_data = {
   'iron boot'
 }
 
+#gear ids (since everything is not separated thus id is used for detection for type of gear)
+```
+swords - 0
+helmet - 1
+chestplate - 2
+leggings - 3
+boots - 4
+rings - 5
+amulets - 6
+```
+
+gear_data = {
+  'starter sword' : 0,
+
+  'starter helmet' : 1,
+
+  'starter chestplate' : [
+    'hp:20\
+     defense:15'
+  ],
+
+  'starter leggings' : [
+    'hp:15\
+     defense: 10\
+     dodge:5'
+  ],
+
+  'starter boots' : [
+    'hp:10\
+    defense:5\
+    dodge:9'
+  ]
+
+  'iron sword' : [
+    'attack:15\
+     defense:3'
+  ]
+  'iron boot'
+}
+
 #Dungeon List
 dungeonlist = ["The lost pit", "Cave of Horrors", "Divildeia Dungeon", The Dungeon of The Lost Norse Gods", "Dungeon of Nihilveia"]
