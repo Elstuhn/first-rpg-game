@@ -17,9 +17,19 @@ def equip(num):
 		pinv[num]
 		if not pinv[num] in gear_list:
 			return "Sorry, you cannot equip that!"
-		equipmentid = gear_list[f'{inventory[num]}']
+		equipmentid = gear_id[f'{pinv[num]}']
 		for i in pgear:
-			gearid = gear_list[i]
+			gearid = gear_id[i]
+			if gearid == equipmentid:
+				ver = input("Would you like to unequip old gear and re-equip new gear? (yes/no)\n")
+				while not ver.lower() in ['yes', 'no']:
+					ver = input("would you like to unequip old gear and re-equip new gear? (yes/no)\n")
+				if ver.lower() == 'no':
+					return
+				else:
+					pinv.append(pgear[equipmentid])
+					pgear[
+			
 			
 	except:
 
