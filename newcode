@@ -10,6 +10,15 @@ def clearscreen():
 	print("\n"*35)
 
 def savegame():
+	with open(gamefile+'/inventory', 'wb') as writefile:
+		pickle.dump(pinv, writefile)
+	
+	with open(gamefile+'/gear', 'wb') as writefile:
+		pickle.dump(pgear, writefile)
+		
+	with open(gamefile+'/playerstats', 'wb') as writefile:
+		pickle.dump(pstats, writefile)
+		
 	
 def equip(num):
 #num is the number of the equipment in the inventory
