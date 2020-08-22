@@ -20,7 +20,7 @@ def savegame():
 		pickle.dump(pstats, writefile)
 		
 	
-def equip(num):
+def equip(num : int):
 #num is the number of the equipment in the inventory
 	try:
 		pinv[num]
@@ -37,7 +37,8 @@ def equip(num):
 					return
 				else:
 					pinv.append(pgear[equipmentid])
-					pgear[
+					pgear[equipmentid] = pinv[num]
+					del pinv[num]
 			
 			
 	except:
