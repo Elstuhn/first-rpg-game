@@ -47,8 +47,11 @@ def equip(num : int):
 				else:
 					gearunequip = pgear.pop(equipmentid)
 					if pinv[num][1]>1:
-						pinv[num][1] +=1
-					gearequip = pinv.pop(
+						pinv[num][1] -=1
+						gearequip = pinv[num][0]
+						pgear[equipmentid] = gearequip
+					else:
+						
 					#equipment ids correlate with pgear index
 					pinv.append(gearunequip)
 					pgear[equipmentid] = pinv[num]
