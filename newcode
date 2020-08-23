@@ -50,17 +50,23 @@ def equip(num : int):
 						pinv[num][1] -=1
 						gearequip = pinv[num][0]
 						pgear[equipmentid] = gearequip
+	
 					else:
-						
+						gearequip = pinv[num][0]
+						del pinv[num]
+						pgear[equipmentid] = gearequip
 					#equipment ids correlate with pgear index
-					pinv.append(gearunequip)
-					pgear[equipmentid] = pinv[num]
-					del pinv[num]
-			
+					for _ in pinv:
+						if gearunequip in _:
+							_[1] += 1
+						else:
+							pinv.append([gearunequip, 1])
 			
 	except:
 
-		elif not inventory[num] in gear_list 
+		return "Error | Item position not found."
+		
+#equip function needs to be printed to show the return strings
 	
 def load_game():
 	with open(gamefile+'/gear', 'rb') as readfile:
@@ -131,6 +137,10 @@ while True:
 				open(gamefile+'/gear', 'x')
 				open(gamefile+'/inventory', 'x')
 				open(gamefile+'/playerstats', 'x')
+				open(gamefile+'/gear', 'x').close()
+				open(gamefile+'/inventory', 'x').close()
+				open(gamefile+'/playerstats', 'x').close()
+				pstats = Player(
 				
 				break
 			except:
