@@ -1,3 +1,21 @@
 attack done range:
   min atk = self.atk
   max atk = (self.atk*2)/1.5
+  
+  
+  
+class Player():
+	def __init__(self, hp : int, def : int, attack : int, dung : list):
+		self.hp = hp
+		self.def = def
+		self.atk = attack
+		self.curhp = hp
+		self.dun = dung
+
+Class for pstats instance
+start stats:
+hp = 20
+def = 10
+atk = 4-6
+dung = [None, None, None, None etc]
+curhp for battles, functions will be made in the class to calculate curhp and enemyhp
