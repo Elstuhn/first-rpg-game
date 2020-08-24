@@ -81,3 +81,15 @@ gear_data = {
 
 #Dungeon List
 dungeonlist = ["The lost pit", "Cave of Horrors", "Divildeia Dungeon", The Dungeon of The Lost Norse Gods", "Dungeon of Nihilveia"]
+
+Player gear sorting:
+indexes - gearname
+0 - weapon (staff, sword, bow, orbs)
+1 - second weapon (similar to first weapon slot but has some sort of prerequisite to be used)
+2 - helmet
+3 - chestplate
+4 - leggings
+5 - boots
+6 - amulet
+7 - ring
+8 - custom
