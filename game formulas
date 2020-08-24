@@ -16,6 +16,7 @@ Class for pstats instance
 start stats:
 hp = 20
 def = 10
-atk = 4-6
+atk = 4
 dung = [None, None, None, None etc]
 curhp for battles, functions will be made in the class to calculate curhp and enemyhp
+minatk = 4
