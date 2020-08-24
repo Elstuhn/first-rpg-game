@@ -140,7 +140,8 @@ while True:
 				open(gamefile+'/gear', 'x').close()
 				open(gamefile+'/inventory', 'x').close()
 				open(gamefile+'/playerstats', 'x').close()
-				pstats = Player(
+				pstats = Player(20, 15, 4, [
+				#there are 
 				
 				break
 			except:
