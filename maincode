@@ -140,8 +140,13 @@ while True:
 				open(gamefile+'/gear', 'x').close()
 				open(gamefile+'/inventory', 'x').close()
 				open(gamefile+'/playerstats', 'x').close()
-				pstats = Player(20, 15, 4, [
-				#there are 
+				'''gamefiles has been made, to speed things up, we will not load game data if they had created a new game
+				thus, player data and assets will need to be initialized, everything being initialized will be empty'''
+				pstats = Player(20, 15, 4, [None, None, None, None, None])
+				#there are 5 dungeons, uncompleted dungeons will be counted as none
+				pgear = [None, None, None, None]
+				#pgear is sorted by gear id, thus it won't be empty instead it will be None
+				pinv = []
 				
 				break
 			except:
