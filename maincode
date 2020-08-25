@@ -6,8 +6,37 @@ import random
 import typing
 curdir = os.getcwd()
 gamefile = curdir+'/adventurefile'
+
+greenfieldmob = [
+rabbit_islandmobs = ['killer rabbit', 'giant rabbit', 'evil easter bunny', 'bad hare', 'corrupted bunny']
+
+travel
+
 def clearscreen():
 	print("\n"*35)
+
+def battle():
+	if self.location == "Green Fields":
+		mobchoices = greenfieldmob
+
+
+def tutorial():
+
+
+def initialize():
+	open(gamefile+'/gear', 'x')
+	open(gamefile+'/inventory', 'x')
+	open(gamefile+'/playerstats', 'x')
+	open(gamefile+'/gear', 'x').close()
+	open(gamefile+'/inventory', 'x').close()
+	open(gamefile+'/playerstats', 'x').close()
+	'''gamefiles has been made, to speed things up, we will not load game data if they had created a new game
+	thus, player data and assets will need to be initialized, everything being initialized will be empty'''
+	pstats = Player(20, 15, 4, [None, None, None, None, None], "Green Fields"ttr)
+	#there are 5 dungeons, uncompleted dungeons will be counted as none
+	pgear = [None, None, None, None, None, None, None, None]
+	#pgear is sorted by gear id, thus it won't be empty instead it will be None
+	pinv = []
 
 def savegame():
 	with open(gamefile+'/inventory', 'wb') as writefile:
@@ -77,12 +106,13 @@ def load_game():
 		pstats = pickle.load(readfile)
 
 class Player():
-	def __init__(self, hp : int, def : int, attack : int, dung : list):
+	def __init__(self, hp : int, def : int, attack : int, dung : list, location : str):
 		self.hp = hp
 		self.def = def
 		self.atk = attack
 		self.curhp = hp
 		self.dun = dung
+		self.location = location
 		
 	def dmgtake(self, health : int):
 		self.curhp -= health
@@ -97,7 +127,7 @@ class Player():
 	
 
 def credits():
-	print("\nGame Development: Elston\nDirector: Elston\nScripter: Elston")
+	print("\n\nGame Development\n-Elston\n\nDirector\n-Elston\n\nScripter\n-Elston\n\nAsset Makers\n-Elston")
 
 def menuscreen():
 	space = "|" + " "*25 + "|"
@@ -115,7 +145,7 @@ bool = os.path.isdir(curdir+'/adventurefile')
 while True:
 	menuscreen()
 	option = input("\n\n")
-	while any([
+	if any([
 		not option in ['1', '2', '3'],
 		not bool and option == '2'
 		]):
@@ -123,10 +153,8 @@ while True:
 			print("Error | Save file not found.")
 		else:
 			print("Invalid Input | Please enter a valid option given")
-			time.sleep(1)
-			print("\n"*3)
-			clearscreen()
-			option = input("\n\n")
+			continue
+			
 	if option == '1':
 		ver = input("Are you sure you want to create a new game?\nThis might wipe out your existing save files (yes/no)\n")
 		while not ver.lower() in ['yes', 'no']:
@@ -134,25 +162,21 @@ while True:
 		if ver.lower() == 'yes':
 			try:
 				os.mkdir(gamefile)
-				open(gamefile+'/gear', 'x')
-				open(gamefile+'/inventory', 'x')
-				open(gamefile+'/playerstats', 'x')
-				open(gamefile+'/gear', 'x').close()
-				open(gamefile+'/inventory', 'x').close()
-				open(gamefile+'/playerstats', 'x').close()
-				'''gamefiles has been made, to speed things up, we will not load game data if they had created a new game
-				thus, player data and assets will need to be initialized, everything being initialized will be empty'''
-				pstats = Player(20, 15, 4, [None, None, None, None, None])
-				#there are 5 dungeons, uncompleted dungeons will be counted as none
-				pgear = [None, None, None, None]
-				#pgear is sorted by gear id, thus it won't be empty instead it will be None
-				pinv = []
+				initialize()
 				
 				break
 			except:
 				shutil.rmtree(gamefile)
 				os.mkdir(gamefile)
+				initialize()
+				break
 		else:	
 			pass
-
+	
+	elif option == '2':
+		load_game()
+		break
+	
+	else:
+		credits()
 	
