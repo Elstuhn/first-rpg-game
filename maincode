@@ -27,7 +27,7 @@ def clearscreen():
 def battle():
 	if self.location == "Green Fields":
 		mobchoices = greenfieldmob
-	mob = Mob(
+	mob = Mob(random.randint(pstats.hp
 
 
 def tutorial():
