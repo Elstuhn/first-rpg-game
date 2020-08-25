@@ -1,6 +1,7 @@
 attack done range:
-  min atk = self.atk
-  max atk = (self.atk*2)/1.5
+  min atk = self.atk/100*9
+  max atk = self.atk/100*12
+  Will be rounded to whole number
   
   
   
@@ -18,5 +19,4 @@ hp = 20
 def = 10
 atk = 4
 dung = [None, None, None, None etc]
-curhp for battles, functions will be made in the class to calculate curhp and enemyhp
-minatk = 4
+curhp for battles, functions will be made in the class to calculate curhp 
