@@ -1,6 +1,6 @@
 attack done range:
-  min atk = self.atk/100*9
-  max atk = self.atk/100*12
+  min atk = self.atk/100*91
+  max atk = self.atk/100*112
   Will be rounded to whole number
   
   
