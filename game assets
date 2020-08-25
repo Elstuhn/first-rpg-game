@@ -98,3 +98,4 @@ indexes - gearname
 Monsters:
 greenfieldmob = ['zombie', 'boar', 'slime', 'giant frog', 'slithery snake', ']
 rabbit_islandmobs = ['killer rabbit', 'giant rabbit', 'evil easter bunny', 'bad hare', 'corrupted bunny']
+valleyofdeathmob = ['skeleton', 'undead', 'giant earth worm', 'scorpio gigantia', 'evil bandits', 'horsemen']
