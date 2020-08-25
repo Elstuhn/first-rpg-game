@@ -93,3 +93,8 @@ indexes - gearname
 6 - amulet
 7 - ring
 8 - custom
+
+
+Monsters:
+greenfieldmob = ['zombie', 'boar', 'slime', 'giant frog', 'slithery snake', ']
+rabbit_islandmobs = ['killer rabbit', 'giant rabbit', 'evil easter bunny', 'bad hare', 'corrupted bunny']
