@@ -8,7 +8,8 @@ curdir = os.getcwd()
 gamefile = curdir+'/adventurefile'
 
 class Mob():
-	def __init__(self, hp : int, atk : int, def : int, agility : int):
+	def __init__(self, name : str, hp : int, atk : int, def : int, agility : int):
+		self.name = name
 		self.hp = hp
 		self.atk = atk
 		self.def = def
@@ -25,9 +26,11 @@ def clearscreen():
 	print("\n"*35)
 
 def battle():
+#Generation of hp, atk, def and agility for monster encounters will be naively based on percentages of player stats
 	if self.location == "Green Fields":
 		mobchoices = greenfieldmob
-	mob = Mob(random.randint(pstats.hp
+	mobhp = random.randint(pstats.hp/100*
+	mob = Mob(random.choice(mobchoices), 
 
 
 def tutorial():
