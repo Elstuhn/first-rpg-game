@@ -96,6 +96,6 @@ indexes - gearname
 
 
 Monsters (monster dicts will be in order of  ('name':multiplier)) :
-greenfieldmob = {'zombie':0, 'boar':0, 'slime':0, 'giant frog':1, 'slithery snake':1}
-rabbit_islandmobs = ['killer rabbit', 'giant rabbit', 'evil easter bunny', 'bad hare', 'corrupted bunny']
+greenfieldmob = {'zombie':0, 'boar':0, 'slime':0, 'giant frog':1, 'slithery snake':1, 'frenzy cow' : 2, '}
+rabbit_islandmobs = {'killer rabbit' : , 'giant rabbit', 'evil easter bunny', 'bad hare', 'corrupted bunny'}
 valleyofdeathmob = ['skeleton', 'undead', 'giant earth worm', 'scorpio gigantia', 'evil bandits', 'horsemen']
