@@ -22,10 +22,10 @@ class Player():
 
 ## pstats initialization (for new game) 
 ### start stats:
-`hp = 20
-def = 15
-atk = 5
-agility: 4
-dung = [None, None, None, None etc]
-location = Green Fields
-curhp for battles, functions will be made in the class to calculate curhp`
+	hp = 20
+	def = 15
+	atk = 5
+	agility: 4
+	dung = [None, None, None, None etc]
+	location = Green Fields
+	curhp for battles, functions will be made in the class to calculate curhp
