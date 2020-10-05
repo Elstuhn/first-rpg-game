@@ -7,13 +7,15 @@
   
   
 ## pstats class 
-`class Player():\n
+```python
+    class Player():
 	def __init__(self, hp : int, def : int, attack : int, dung : list):
 		self.hp = hp
 		self.def = def
 		self.atk = attack
 		self.curhp = hp
-		self.dun = dung`
+		self.dun = dung
+```
 
 
 ## pstats initialization (for new game) 
