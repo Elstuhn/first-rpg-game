@@ -15,7 +15,7 @@ class Player():
 		self.agility = agility
 		self.curhp = hp
 		self.dun = dung
-		self.location = location
+		self.loc = location
 		
 	def dmgtake(self, health : int):
 		self.curhp -= health
@@ -44,7 +44,21 @@ class Mob():
 greenfieldmob = [
 rabbit_islandmobs = ['killer rabbit', 'giant rabbit', 'evil easter bunny', 'bad hare', 'corrupted bunny']
 
-travel
+def travel():
+	while True:
+		location = input("Where would you like to travel to?")
+		if not location in locations:
+			print("\nInvalid location...")
+			continue
+		elif location == pstats.loc:
+			print(f"You are already in {location}!")
+			continue
+		pstats.loc = location
+		break
+	print(f"\nTravelled to {location}!")
+	return f"Travelled to {location}"
+			
+		
 
 def clearscreen():
 	print("\n"*35)
@@ -70,7 +84,7 @@ def initialize():
 	open(gamefile+'/playerstats', 'x').close()
 	'''gamefiles has been made, to speed things up, we will not load game data if they had created a new game
 	thus, player data and assets will need to be initialized, everything being initialized will be empty'''
-	pstats = Player(20, 15, 4, [None, None, None, None, None], "Green Fields"ttr)
+	pstats = Player(20, 15, 5, 4, [None, None, None, None, None], "Green Fields")
 	#there are 5 dungeons, uncompleted dungeons will be counted as none
 	pgear = [None, None, None, None, None, None, None, None]
 	#pgear is sorted by gear id, thus it won't be empty instead it will be None
@@ -162,15 +176,12 @@ bool = os.path.isdir(curdir+'/adventurefile')
 while True:
 	menuscreen()
 	option = input("\n\n")
-	if any([
-		not option in ['1', '2', '3'],
-		not bool and option == '2'
-		]):
-		if not bool and option == '2':
-			print("Error | Save file not found.")
-		else:
-			print("Invalid Input | Please enter a valid option given")
-			continue
+	if not bool and option == '2':
+		print("Error | Save file not found.\n")
+		continue
+	elif not option in ['1', '2', '3']:
+		print("Invalid Input | Please enter a valid option given\n")
+		continue
 			
 	if option == '1':
 		ver = input("Are you sure you want to create a new game?\nThis might wipe out your existing save files (yes/no)\n")
