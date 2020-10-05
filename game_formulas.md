@@ -1,4 +1,4 @@
-## Attack Done:
+## Attack Done
 	dmg done = determined by pstats.atk
 	crit = 1/3 chance = 33%
 	crit = pstats.atk/100*115
@@ -20,8 +20,7 @@ class Player():
 ```
 
 
-## pstats initialization (for new game) 
-### start stats:
+## pstats initialization (for new game)
 	hp = 20
 	def = 15
 	atk = 5
