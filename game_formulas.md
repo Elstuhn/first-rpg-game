@@ -1,14 +1,14 @@
 ## Attack Done
 	dmg done = determined by pstats.atk
 	crit = 1/3 chance = 33%
-	crit = pstats.atk/100*115
+	crit = pstats.atk*1.15
 	
 
   
   
 ## pstats class 
 ```python
-class Player():
+class PlayerStats():
 	def __init__(self, hp : int, def : int, attack : int, agility : int, dung : list, location : str):
 		self.hp = hp
 		self.def = def
@@ -28,3 +28,5 @@ class Player():
 	dung = [None, None, None, None etc]
 	location = Green Fields
 	curhp for battles, functions will be made in the class to calculate curhp
+
+## 
