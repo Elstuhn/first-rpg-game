@@ -7,7 +7,50 @@ import typing
 curdir = os.getcwd()
 gamefile = curdir+'/adventurefile'
 
-class Player():
+class PlayerAssets():
+	def __init__(self, gold : int, gear : list, inventory : dict):
+		self.gold = gold
+		self.gear = gear
+		self.inv = inventory
+	
+	def equip(self, num : int):
+#num is the number of the equipment in the inventory
+#inventory will be enumerated so order will start from 0
+		try:
+			gearequip = self.inv[num][0]
+		except:
+			return "Error | Item position not found."
+		if not gearequip in gear_list:
+			return "Sorry, you cannot equip that!"
+		elif gearequip in self.gear:
+			return "You already have that equipped!"
+
+		equipmentid = gear_id[gearequip]
+		#equipmentid access gear_id dictionary to retrieve string form of equipment's id
+		for i in self.gear:
+			if gearid[i] == equipmentid:
+		#gearid[i] has a possibility of being None therefore gearid[None] will be hashmapped to -1
+				ver = input(f"Would you like to unequip {self.gear(equipmentid)} to equip {gearequip}? (yes/no)\n")
+				while not ver.lower() in ['yes', 'no']:
+					ver = input(f"Would you like to unequip {self.gear(equipmentid)} to equip {gearequip}? (yes/no)\n")
+				if ver.lower() == 'no':
+					return
+            
+				gearunequip = self.gear.pop(equipmentid)
+				gearequip = self.inv[num][0]
+				self.gear[equipmentid] = gearequip
+				if self.inv[num][1]>1:
+					pinv[num][1] -=1
+				else:
+					del self.inv[num]
+					#equipment ids correlate with pgear index
+				for _ in self.inv:
+					if gearunequip in _:
+						_[1] += 1
+					else:
+						self.inv.append([gearunequip, 1])
+
+class PlayerStats():
 	def __init__(self, hp : int, def : int, attack : int, agility : int, dung : list, location : str):
 		self.hp = hp
 		self.def = def
@@ -29,7 +72,7 @@ class Player():
 		return dmgdone
 		
 	def dunupdate(self, dungeon_number : int):
-		self.dung.append(dungeon_list[dungeon_number-1])
+		self.dung[dungeon_number] = True
 
 class Mob():
 	def __init__(self, name : str, hp : list, atk : int, def : int, agility : int):
@@ -76,84 +119,27 @@ def tutorial():
 
 
 def initialize():
-	open(gamefile+'/gear', 'x')
-	open(gamefile+'/inventory', 'x')
+	open(gamefile+'/playerassets', 'x')
 	open(gamefile+'/playerstats', 'x')
-	open(gamefile+'/gear', 'x').close()
-	open(gamefile+'/inventory', 'x').close()
+	open(gamefile+'/playerassets', 'x').close()
 	open(gamefile+'/playerstats', 'x').close()
 	'''gamefiles has been made, to speed things up, we will not load game data if they had created a new game
 	thus, player data and assets will need to be initialized, everything being initialized will be empty'''
-	pstats = Player(20, 15, 5, 4, [None, None, None, None, None], "Green Fields")
+	pstats = PlayerStats(20, 15, 5, 4, [None, None, None, None, None], "Green Fields")
 	#there are 5 dungeons, uncompleted dungeons will be counted as none
-	pgear = [None, None, None, None, None, None, None, None]
-	#pgear is sorted by gear id, thus it won't be empty instead it will be None
-	pinv = []
+	passets = PlayerAssets(0, [None, None, None, None, None, None, None, None], [])
 
 def savegame():
-	with open(gamefile+'/inventory', 'wb') as writefile:
-		pickle.dump(pinv, writefile)
-	#inventory will be a nested list object ([0, 0] = item(string) [0, 1] = quantity(int))
-	
-	with open(gamefile+'/gear', 'wb') as writefile:
-		pickle.dump(pgear, writefile)
-	#pgear will be a list object
+	with open(gamefile+'/playerassets', 'wb') as writefile:
+		pickle.dump(passets, writefile)
 		
 	with open(gamefile+'/playerstats', 'wb') as writefile:
 		pickle.dump(pstats, writefile)
-	#playerstats will be a class instance object
-		
-	
-def equip(num : int):
-#num is the number of the equipment in the inventory
-#inventory will be enumerated so order will start from 0
-	try:
-		pinv[num]
-		gearequip = pinv[num]
-		if not gearequip in gear_list:
-			return "Sorry, you cannot equip that!"
-		elif gearequip in pgear:
-			return "You already have that equipped!"
-
-		equipmentid = gear_id[gearequip]
-		#equipmentid access gear_id dictionary to retrieve string form of equipment's id
-		for i in pgear:
-			gearid = gear_id[i]
-			if gearid == equipmentid:
-				ver = input("Would you like to unequip old gear and re-equip new gear? (yes/no)\n")
-				while not ver.lower() in ['yes', 'no']:
-					ver = input("would you like to unequip old gear and re-equip new gear? (yes/no)\n")
-				if ver.lower() == 'no':
-					return
-				else:
-					gearunequip = pgear.pop(equipmentid)
-					if pinv[num][1]>1:
-						pinv[num][1] -=1
-						gearequip = pinv[num][0]
-						pgear[equipmentid] = gearequip
-	
-					else:
-						gearequip = pinv[num][0]
-						del pinv[num]
-						pgear[equipmentid] = gearequip
-					#equipment ids correlate with pgear index
-					for _ in pinv:
-						if gearunequip in _:
-							_[1] += 1
-						else:
-							pinv.append([gearunequip, 1])
-			
-	except:
-
-		return "Error | Item position not found."
-		
-#equip function needs to be printed to show the return strings
+	#playerstats will be a PlayerStats instance 
 	
 def load_game():
-	with open(gamefile+'/gear', 'rb') as readfile:
-		pgear = pickle.load(readfile)
-	with open(gamefile+'/inventory', 'rb') as readfile:
-		pinv = pickle.load(readfile)
+	with open(gamefile+'/playerassets', 'rb') as readfile:
+		passets = pickle.load(readfile)
 	with open(gamefile+'/playerstats', 'rb') as readfile:
 		pstats = pickle.load(readfile)
 	
@@ -184,14 +170,13 @@ while True:
 		continue
 			
 	if option == '1':
-		ver = input("Are you sure you want to create a new game?\nThis might wipe out your existing save files (yes/no)\n")
+		ver = input("Are you sure you want to create a new game?\nThis will wipe out your existing save files (yes/no)\n")
 		while not ver.lower() in ['yes', 'no']:
 			ver = input("Are you sure you want to create a new game?\nThis will wipe out any of your existing save files (yes/no)\n")
 		if ver.lower() == 'yes':
 			try:
 				os.mkdir(gamefile)
-				initialize()
-				
+				initialize()	
 				break
 			except:
 				shutil.rmtree(gamefile)
@@ -207,4 +192,5 @@ while True:
 	
 	else:
 		credits()
-	
+		time.sleep(5)
+
