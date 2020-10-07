@@ -39,16 +39,19 @@ class PlayerAssets():
 		gearunequip = self.gear.pop(equipmentid)
 		gearequip = self.inv[num][0]
 		self.gear[equipmentid] = gearequip
-		if self.inv[num][1]>1:
-			self.inv[num][1] -=1
+		equipnum = self.inv[num][1]
+		equipnum = int(equipnum)
+		if equipnum>1:
+			self.inv[num][1] = str(equipnum-=1)
 		else:
 			del self.inv[num]
 			#equipment ids correlate with pgear index
-			for _ in self.inv:
-				if gearunequip in _:
-					_[1] += 1
-				else:
-					self.inv.append([gearunequip, 1])
+		for _ in self.inv:
+			if gearunequip in _:
+				unequipnum = _[1]
+				_[1] = str(int(unequipnum)+=1)
+				return f"Equipped {gearequip}!"		
+		self.inv.append([gearunequip, 1])
 			
 
 class PlayerStats():
@@ -68,8 +71,12 @@ class PlayerStats():
 		self.curhp = self.hp
 		
 	def dmgdone(self):
-		maxatk = (self.atk*2)//1.5
-		dmgdone = random.randint(self.atk, maxatk)
+		critminus = round(self.agility/20)
+		random = random.randint(1, (20-critminus))
+		if random == 1:
+			dmgdone = self.atk*1.15
+		else:
+			dmgdone = self.atk
 		return dmgdone
 		
 	def dunupdate(self, dungeon_number : int):
