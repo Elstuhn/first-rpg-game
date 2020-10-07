@@ -36,19 +36,20 @@ class PlayerAssets():
 				if ver.lower() == 'no':
 					return
             
-				gearunequip = self.gear.pop(equipmentid)
-				gearequip = self.inv[num][0]
-				self.gear[equipmentid] = gearequip
-				if self.inv[num][1]>1:
-					pinv[num][1] -=1
+		gearunequip = self.gear.pop(equipmentid)
+		gearequip = self.inv[num][0]
+		self.gear[equipmentid] = gearequip
+		if self.inv[num][1]>1:
+			self.inv[num][1] -=1
+		else:
+			del self.inv[num]
+			#equipment ids correlate with pgear index
+			for _ in self.inv:
+				if gearunequip in _:
+					_[1] += 1
 				else:
-					del self.inv[num]
-					#equipment ids correlate with pgear index
-				for _ in self.inv:
-					if gearunequip in _:
-						_[1] += 1
-					else:
-						self.inv.append([gearunequip, 1])
+					self.inv.append([gearunequip, 1])
+			
 
 class PlayerStats():
 	def __init__(self, hp : int, def : int, attack : int, agility : int, dung : list, location : str):
