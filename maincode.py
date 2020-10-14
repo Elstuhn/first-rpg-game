@@ -7,6 +7,23 @@ import typing
 curdir = os.getcwd()
 gamefile = curdir+'/adventurefile'
 
+class locmob():
+	def __init__(self, locmobs):
+		self.locmob = locmobs
+		for _ in self.locmob:
+			if pstats.loc.split()[0] in _:
+				self.mobs = self.locmob[_]
+				
+	def randmob(self):
+		mob = random.choice(list(self.mobs)) #turns self.mob into a list and picks a random key
+		stats = ['hp', 'atk', 'def', 'agility']
+		count = 0
+		for i in stats:
+			stats[count] = eval(f"random.randint(pstats.{i}*0.95, pstats.{i}*1.05)")
+			counnt += 1
+		#mobs will have plus minus 5% of player stats
+		return Mob(mob, *stats) 
+
 class PlayerAssets():
 	def __init__(self, gold : int, gear : list, inventory : dict):
 		self.gold = gold
@@ -40,18 +57,17 @@ class PlayerAssets():
 		gearequip = self.inv[num][0]
 		self.gear[equipmentid] = gearequip
 		equipnum = self.inv[num][1]
-		equipnum = int(equipnum)
 		if equipnum>1:
-			self.inv[num][1] = str(equipnum-=1)
+			self.inv[num][1] -=1
 		else:
 			del self.inv[num]
 			#equipment ids correlate with pgear index
 		for _ in self.inv:
 			if gearunequip in _:
-				unequipnum = _[1]
-				_[1] = str(int(unequipnum)+=1)
+				_[1] +=1
 				return f"Equipped {gearequip}!"		
 		self.inv.append([gearunequip, 1])
+		return f"Equipped {gearequip}!"	
 			
 
 class PlayerStats():
@@ -83,17 +99,20 @@ class PlayerStats():
 		self.dung[dungeon_number] = True
 
 class Mob():
-	def __init__(self, name : str, hp : list, atk : int, def : int, agility : int):
+	def __init__(self, name : str, hp : int, atk : int, def : int, agility : int):
 		self.name = name
 		self.hp = hp
 		self.atk = atk
 		self.def = def
 		self.agility = agility
 		
-	
-
-greenfieldmob = [
-rabbit_islandmobs = ['killer rabbit', 'giant rabbit', 'evil easter bunny', 'bad hare', 'corrupted bunny']
+	def dmgtake(self, dmg):
+		self.hp -= dmg
+		if self.hp <= 1:
+			return True
+		else:
+			return False
+		
 
 def travel():
 	while True:
@@ -128,14 +147,18 @@ def tutorial():
 
 def initialize():
 	open(gamefile+'/playerassets', 'x')
+	open(gamefile+'/mobassets', 'x')
 	open(gamefile+'/playerstats', 'x')
 	open(gamefile+'/playerassets', 'x').close()
 	open(gamefile+'/playerstats', 'x').close()
+	open(gamefile+'/mobassets', 'x').close()
 	'''gamefiles has been made, to speed things up, we will not load game data if they had created a new game
 	thus, player data and assets will need to be initialized, everything being initialized will be empty'''
 	pstats = PlayerStats(20, 15, 5, 4, [None, None, None, None, None], "Green Fields")
 	#there are 5 dungeons, uncompleted dungeons will be counted as none
 	passets = PlayerAssets(0, [None, None, None, None, None, None, None, None], [])
+	massets = locmob()
+	
 
 def savegame():
 	with open(gamefile+'/playerassets', 'wb') as writefile:
@@ -144,13 +167,17 @@ def savegame():
 	with open(gamefile+'/playerstats', 'wb') as writefile:
 		pickle.dump(pstats, writefile)
 	#playerstats will be a PlayerStats instance 
+			  
+	with open(gamefile+'/mobassets', 'wb') as writefile:
+		pickle.dump(massets, writefile)
 	
 def load_game():
 	with open(gamefile+'/playerassets', 'rb') as readfile:
 		passets = pickle.load(readfile)
 	with open(gamefile+'/playerstats', 'rb') as readfile:
 		pstats = pickle.load(readfile)
-	
+	with open(gamefile+'/mobassets', 'rb') as readfile:
+		massets = pickle.load(readfile)
 def credits():
 	print("\n\nGame Development\n-Elston\n\nDirector\n-Elston\n\nScripter\n-Elston\n\nAsset Makers\n-Elston")
 
