@@ -29,6 +29,20 @@ class PlayerStats():
 	dung = [None, None, None, None etc]
 	location = Green Fields
 	curhp for battles, functions will be made in the class to calculate curhp
+	
+## class PlayerAssets
+	```python
+	def __init__(self, gold : int, gear : list, inventory : dict):
+		self.gold = gold
+		self.gear = gear
+		self.inv = inventory
+	```
+	
+## playerassets initialization
+	gold = 0
+	gear= [None, None, None, None, None, None]
+	inventory = []
+	
 
 ## Dungeon List
 	dungeonlist = ["The lost pit", "Cave of Horrors", "Divildeia Dungeon", The Dungeon of The Lost Norse Gods", "Dungeon of Nihilveia"]
