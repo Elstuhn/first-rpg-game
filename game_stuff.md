@@ -33,7 +33,7 @@ class PlayerStats():
 ## class PlayerAssets
 ```python
 class PlayerAssets():
-	def __init__(self, gold : int, gear : list, inventory : dict):
+	def __init__(self, gold : int, gear : list, inventory : list):
 		self.gold = gold
 		self.gear = gear
 		self.inv = inventory
