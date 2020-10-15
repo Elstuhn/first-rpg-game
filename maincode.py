@@ -12,9 +12,11 @@ staffmessage = ["You cast a fireball spell at the monster.", "You cast electrici
 mobmessage = ["The monster charges at you", "The monster attacks you.", "The monster ferociously attacks!", "The monster strikes you"]
 
 class gameassets():
-	def __init__(self, locmobs, locations, dungeons):
+	def __init__(self, locmobs : dict, locations : list, dungeons : list, gear_data : dict, gear_id : dict):
 		self.locmob = locmobs
 		self.locats = locations
+		self.geardata = gear_data
+		self.gearid  = gear_id
 		for _ in self.locmob:
 			if pstats.loc.split()[0].lower() in _.lower():
 				self.mobs = self.locmob[_]
@@ -54,10 +56,12 @@ class PlayerAssets():
 		elif gearequip in self.gear:
 			return "You already have that equipped!"
 
-		equipmentid = gear_id[gearequip][0]
+		equipmentid = gassets.
+
+		gearid[gearequip][0]
 		#equipmentid access gear_id dictionary to retrieve string form of equipment's id
 		for i in self.gear:
-			if gearid[i][0] == equipmentid:
+			if gassets.gearid[i][0] == equipmentid:
 		#gearid[i] has a possibility of being None therefore gearid[None] will be hashmapped to -1
 				ver = input(f"Would you like to unequip {self.gear(equipmentid)} to equip {gearequip}? (yes/no)\n")
 				while not ver.lower() in ['yes', 'no']:
@@ -174,6 +178,9 @@ def travel():
 def clearscreen():
 	print("\n"*35)
 
+def battlerewards():
+		
+	
 def battle():
 	#player turn
 	weapon = gear_id[pstats.gear[0]][1] #Gets the weapon type of current equipped weapon
@@ -256,9 +263,6 @@ def unconsume(lis):
 			pstats.i[0] -= i[1]
 		else:
 			continue
-	
-def tutorial():
-
 
 def initialize():
 	open(gamefile+'/playerassets', 'x')
