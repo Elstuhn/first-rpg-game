@@ -1,3 +1,4 @@
+```python
 import pickle
 import os
 import shutil
@@ -354,3 +355,4 @@ while True:
 		credits()
 		time.sleep(5)
 
+```
