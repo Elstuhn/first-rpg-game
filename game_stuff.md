@@ -31,12 +31,13 @@ class PlayerStats():
 	curhp for battles, functions will be made in the class to calculate curhp
 	
 ## class PlayerAssets
-	```python
+```python
+class PlayerAssets():
 	def __init__(self, gold : int, gear : list, inventory : dict):
 		self.gold = gold
 		self.gear = gear
 		self.inv = inventory
-	```
+```
 	
 ## playerassets initialization
 	gold = 0
