@@ -1,44 +1,46 @@
-#game gear
+## game gear
 '''
 can save time by separating game gear datas as chestplate, leggings, helmet and as separate pieces so that traversing will not be longer
 however, putting all gear in one dictionary helps promote randomness whereas in separating them, the game developer takes most of the control
 ```
-
+```python
 gear_data = {
-  'starter sword' : [
-    'attack:9\
-     defense:1'
-  ],
+  'greenfield' : {
+    'starter sword' : [
+      'attack:9\
+      defense:1'
+    ],
 
-  'starter helmet' : [
-    'hp:10\
-     defense:10'
-  ]
+    'starter helmet' : [
+      'hp:10\
+      defense:10'
+    ],
 
-  'starter chestplate' : [
-    'hp:20\
-     defense:15'
-  ],
+    'starter chestplate' : [
+      'hp:20\
+      defense:15'
+    ],
 
-  'starter leggings' : [
-    'hp:15\
-     defense: 10\
-     dodge:5'
-  ],
+    'starter leggings' : [
+      'hp:15\
+      defense: 10\
+      dodge:5'
+    ],
 
-  'starter boots' : [
-    'hp:10\
-    defense:5\
-    dodge:9'
-  ]
+    'starter boots' : [
+      'hp:10\
+      defense:5\
+      dodge:9'
+    ]
 
-  'iron sword' : [
-    'attack:15\
-     defense:3'
-  ]
-  'iron boot'
+    'iron sword' : [
+      'attack:15\
+      defense:3'
+    ]
+    'iron boot'
+  }
 }
-
+```
 #gear ids (since everything is not separated thus id is used for detection for type of gear)
 ```
 swords - 0
