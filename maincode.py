@@ -56,9 +56,7 @@ class PlayerAssets():
 		elif gearequip in self.gear:
 			return "You already have that equipped!"
 
-		equipmentid = gassets.
-
-		gearid[gearequip][0]
+		equipmentid = gassets.gearid[gearequip][0]
 		#equipmentid access gear_id dictionary to retrieve string form of equipment's id
 		for i in self.gear:
 			if gassets.gearid[i][0] == equipmentid:
@@ -178,8 +176,15 @@ def travel():
 def clearscreen():
 	print("\n"*35)
 
-def battlerewards():
-		
+def battlerewards(rewardstack : int):
+	gold = random.randint(passets.gold*0.01, passets.gold*0.12)
+	gold += 10*rewardstack
+	for i in gassets.geardata:
+		if pstats.loc.split()[0].lower() in i:
+			weapons = gassets.geardata[i]
+	for i in range(rewardstack):
+		weapon = random.choice(list(weapons))
+	
 	
 def battle():
 	#player turn
