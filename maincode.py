@@ -171,6 +171,17 @@ def travel():
 	print(f"\nTravelled to {location}!")
 	return f"Travelled to {location}"
 			
+def weaponadd(weapon):
+	count = 0
+	for i in passets.inv:
+		if weapon in i
+			if i[1] > 1:
+				i[1] -= 1
+			else:
+				del passets.inv[count]
+			return
+		count += 1
+	passets.inv.append([weapon, 1])
 		
 
 def clearscreen():
@@ -184,6 +195,8 @@ def battlerewards(rewardstack : int):
 			weapons = gassets.geardata[i]
 	for i in range(rewardstack):
 		weapon = random.choice(list(weapons))
+		weaponadd(weapon)
+				
 	
 	
 def battle():
@@ -249,9 +262,6 @@ def battle():
 			return
 		
 			
-		
-		
-		
 def consume(item):
 	returnlis = []
 	stats = item_assets[item]
