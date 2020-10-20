@@ -49,7 +49,10 @@ rings - 5
 amulets - 6
 ```
 
-
+## Item_Assets (potions and buff items)
+```python
+item_assets = {
+  'greenfield' : {
 
 
 
