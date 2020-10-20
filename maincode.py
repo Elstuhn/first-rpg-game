@@ -99,7 +99,7 @@ class PlayerAssets():
 					return [True, item]
 		return [False, None]
 	
-	def consumablelist(self):
+	def consumablelist(self) -> dict:
 		location = pstats.loc.split()[0]
 		for i in self.consumables:
 			if location == i:
@@ -115,7 +115,7 @@ class PlayerStats():
 		self.dun = dungeon
 		self.loc = location
 		
-	def dmgtake(self, health : int):
+	def dmgtake(self, health : int) -> bool:
 		self.curhp -= health
 		if self.curhp <= 0:
 			moneylost = random.randint(passets.gold*0.2, passets.gold*0.35)
@@ -133,7 +133,7 @@ class PlayerStats():
 		else:
 			self.curhp += plus
 		
-	def dmgdone(self):
+	def dmgdone(self) -> int:
 		critminus = round(self.agility/20)
 		critrand = random.randint(1, (20-critminus))
 		if critrand == 1:
@@ -209,21 +209,23 @@ def battlerewards(rewardstack : int):
 	location = pstats.loc.split()[0].lower()
 	gold = random.randint(passets.gold*0.01, passets.gold*0.12)
 	gold += 10*rewardstack
+	rewards.append(f"{gold} gold")
 	for i in gassets.geardata:
 		if location in i:
 			weapons = gassets.geardata[i]
 			
 	for i in range(rewardstack):
 		weapon = random.choice(list(weapons))
+		rewards.append(weapon)
 		weaponadd(weapon)
-	for i in passets.consumables
-		if location == i:
-			consumables = passets.consumables[i]
 	consumables = passets.consumablelist()
 	for i in range(rewardstack):
 		_ = random.choice(list(consumables))
+		rewards.append(_)
+		weaponadd(_)
 		
-	
+	return rewards
+		
 	
 def battle():
 	unconsume_ = []
@@ -260,8 +262,10 @@ def battle():
 			#If win
 			if mobtake:
 				print(f"You have defeated the {mob.name}!")
-				battlerewards(2)
+				br = battlerewards(2)
 				unconsume(unconsume_)
+				print("Battle rewards:")
+				print('\n'.join(br))
 				return
 		
 		else:
