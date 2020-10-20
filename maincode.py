@@ -34,15 +34,17 @@ class gameassets():
 		return Mob(mob, *stats) 
 	
 	def changelocation(self):
+		location = pstats.loc.split()[0].lower()
 		for _ in self.locmob:
-			if pstats.loc.split()[0].lower() in _.lower():
+			if location in _.lower():
 				self.mobs = self.locmob[_]
 			
 class PlayerAssets():
-	def __init__(self, gold : int, gear : list, inventory : dict):
+	def __init__(self, gold : int, gear : list, inventory : dict, consumables : dict):
 		self.gold = gold
 		self.gear = gear
 		self.inv = inventory
+		self.consumables = consumables
 	
 	def equip(self, num : int):
 #num is the number of the equipment in the inventory
@@ -87,6 +89,21 @@ class PlayerAssets():
 		print("Item Number | Item Name | Item Amount")
 		for num, item in enumerate(self.inv):
 			print(f"{num} | {item[0]}  x{item[1]}")
+			
+	def checkconsumables(self, num):
+		_ = self.inv[num]
+		item = _[0]
+		for _ in self.consumables:
+			for i in self.consumables[_]:
+				if i == item:
+					return [True, item]
+		return [False, None]
+	
+	def consumablelist(self):
+		location = pstats.loc.split()[0]
+		for i in self.consumables:
+			if location == i:
+				return self.consumables[i]
 
 class PlayerStats():
 	def __init__(self, hp : int, def : int, attack : int, agility : int, dungeon : list, location : str):
@@ -188,18 +205,28 @@ def clearscreen():
 	print("\n"*35)
 
 def battlerewards(rewardstack : int):
+	rewards = []
+	location = pstats.loc.split()[0].lower()
 	gold = random.randint(passets.gold*0.01, passets.gold*0.12)
 	gold += 10*rewardstack
 	for i in gassets.geardata:
-		if pstats.loc.split()[0].lower() in i:
+		if location in i:
 			weapons = gassets.geardata[i]
+			
 	for i in range(rewardstack):
 		weapon = random.choice(list(weapons))
 		weaponadd(weapon)
-				
+	for i in passets.consumables
+		if location == i:
+			consumables = passets.consumables[i]
+	consumables = passets.consumablelist()
+	for i in range(rewardstack):
+		_ = random.choice(list(consumables))
+		
 	
 	
 def battle():
+	unconsume_ = []
 	#player turn
 	weapon = gear_id[pstats.gear[0]][1] #Gets the weapon type of current equipped weapon
 	if weapon == "sword":
@@ -233,7 +260,8 @@ def battle():
 			#If win
 			if mobtake:
 				print(f"You have defeated the {mob.name}!")
-				
+				battlerewards(2)
+				unconsume(unconsume_)
 				return
 		
 		else:
@@ -241,16 +269,16 @@ def battle():
 			choice = input("What would you like to do?\nType in the item number you want to use or just press enter to cancel\n") 
 			while any([
 				choice != "",
-				not choice in item_assets
+				not passets.checkconsumables(choice)[0]
 			]):
 				print("Invalid Input.")
 				choice = input("What would you like to do?\nType in the item number you want to use or just press enter to cancel\n") 
-			item = pstats.inv[choice]
-			consume(item[0])
-			if item[1] >1:
-				pstats.inv[choice][1] -= 1
-			else:
-				del pstats.inv[choice]
+			if choice == "":
+				return
+			item = passets.checkconsumables(choice)[1]
+			_ = consume(item)
+			unconsume_.append(_)
+			
 		#Mob turn
 		dmgdone = mob.dmgdone()
 		print(random.choice(mobmessage))
@@ -259,12 +287,13 @@ def battle():
 		print(f"The {mob.name} deals {dmgdone} to you!")
 		ptake = pstats.dmgtake(dmgdone)
 		if ptake:
+			unconsume(unconsume_)
 			return
 		
 			
 def consume(item):
 	returnlis = []
-	stats = item_assets[item]
+	stats = passets.consumables[item]
 	stats = stats.split()
 	for i in stats:
 		i = i.split(":")
@@ -273,11 +302,14 @@ def consume(item):
 	return returnlis
 		
 def unconsume(lis):
+	if len(lis) == 0:
+		return
 	for i in lis:
 		if i[0] != "hp":
 			pstats.i[0] -= i[1]
 		else:
 			continue
+	return
 
 def initialize():
 	open(gamefile+'/playerassets', 'x')
