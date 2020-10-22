@@ -244,7 +244,7 @@ def battle():
 		if playermove not in [1, 2, 3]:
 			continue
 		elif playermove == 3:
-			randnum = random.randint(1, 3)
+			randnum = random.randint(1, 3) #33%
 			if randnum == 1:
 				print("You have successfully ran away!")
 				return "Ran Away"
@@ -390,7 +390,8 @@ while True:
 			ver = input("Are you sure you want to create a new game?\nThis will wipe out any of your existing save files (yes/no)\n")
 		if ver.lower() == 'yes':
 			try:
-				os.mkdir(gamefile)
+				if os.path.exists(gamefile):
+					raise
 				initialize()	
 				break
 			except:
@@ -399,7 +400,7 @@ while True:
 				initialize()
 				break
 		else:	
-			pass
+			continue
 	
 	elif option == '2':
 		load_game()
@@ -408,3 +409,6 @@ while True:
 	else:
 		credits()
 		time.sleep(5)
+
+def main():
+	
