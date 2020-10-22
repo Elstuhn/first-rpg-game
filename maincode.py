@@ -4,6 +4,7 @@ import shutil
 import sys
 import random
 import typing
+import time
 curdir = os.getcwd()
 gamefile = curdir+'/adventurefile'
 swordmessage = ["You swung your sword as hard as possible at the monster.", "You thrusted your sword into the monster.", "You slashed the monster"]
@@ -16,6 +17,7 @@ class gameassets():
 		self.locmob = locmobs
 		self.locats = locations
 		self.geardata = gear_data
+		sekf.dungeons = dungeons
 		self.gearid  = gear_id
 		for _ in self.locmob:
 			if pstats.loc.split()[0].lower() in _.lower():
@@ -89,6 +91,11 @@ class PlayerAssets():
 		print("Item Number | Item Name | Item Amount")
 		for num, item in enumerate(self.inv):
 			print(f"{num} | {item[0]}  x{item[1]}")
+			
+	def showgear(self):
+		print("Currently equipped:")
+		for i in self.gear:
+			print(i)
 			
 	def checkconsumables(self, num):
 		_ = self.inv[num]
@@ -262,7 +269,7 @@ def battle():
 			#If win
 			if mobtake:
 				print(f"You have defeated the {mob.name}!")
-				br = battlerewards(2)
+				br = battlerewards(1)
 				unconsume(unconsume_)
 				print("Battle rewards:")
 				print('\n'.join(br))
@@ -411,4 +418,39 @@ while True:
 		time.sleep(5)
 
 def main():
-	
+	while True:
+		options = input("Please enter your command\nType help for commands.")
+		options = options.lower()
+		if options == "help":
+			print("Commands:\nexplore - explore a random area and possibly find treasure\nshowinventory - shows your inventory\nshowgear - shows your currently equipped gear\n\
+				dungeons - show all dungeons\ncompleteddungeons - shows your cleared dungeons\nchallenge - challenge the next available dungeon\nequip - equip a new gear\n\
+				go to the nearest village and heal")
+		elif options == "explore":
+			areas = ["ruin", "cave", "valley", "meadow"]
+			action = ["walking around", "exploring", "running around", "looking around"]
+			area = random.choice(areas)
+			action = random.choice(action)
+			print(f"You ended up finding a {area}.\nYou started {action} in the {area}")
+			for i in range(random.randint(2, 4)):
+				battle()
+				print(f"You continue {action}")
+				time.sleep(1.3)
+			if random.randint(1, 4):
+				print("You found a treasure chest!\nYou open it slowly...")
+				br = battlerewards(2)
+				print("You found..")
+				print('\n'.join(br))
+		elif options == "showinventory":
+			passets.showinv()
+		elif options == "showgear":
+			print("Currently equipped gear")
+			passets.showgear()
+		elif options == "dungeons"
+			print(gassets.dungeons)
+		elif options == "completeddungeons":
+			count = 0
+			for i in pstats.dun:
+				if not i == None:
+					count+=1
+			for i in range(count):
+				print(gassets.dungeons[i])
