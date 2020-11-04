@@ -242,10 +242,12 @@ def battle():
 		message = swordmessage
 	elif weapon == "bow":
 		message = bowmessage
-	else:
+	elif weapon == "staff":
 		message = staffmessage
 #Generation of hp, atk, def and agility for monster encounters are naively based on percentages of player stats
 	mob = gassets.randmob() #Returns a Mob class instance
+	print(f"You have encountered a {mob.name}!")
+	print(f"Mob hp: {mob.hp}")
 	while True:
 		playermove = input("Would you like to:\n1.Attack\n2.Inventory\n3.Run\n")
 		if playermove not in [1, 2, 3]:
