@@ -17,10 +17,11 @@ class gameassets():
 		self.locmob = locmobs
 		self.locats = locations
 		self.geardata = gear_data
-		sekf.dungeons = dungeons
+		self.dungeons = dungeons
 		self.gearid  = gear_id
+		var = pstats.loc.split()[0].lower() #first letter lowered of player location
 		for _ in self.locmob:
-			if pstats.loc.split()[0].lower() in _.lower():
+			if var in _.lower():
 				self.mobs = self.locmob[_]
 				
 	def randmob(self) -> Mob:
@@ -181,8 +182,8 @@ def travel():
 	while True:
 		print("Locations:")
 		for locations in gassets.locats:
-			print(locations)
-		location = input("Where would you like to travel to?\n")
+			print("-", locations)
+		location = input("Where would you like to travel to? (Case Sensitive)\n")
 		if not location in gassets.locats:
 			print("\nInvalid location...")
 			continue
