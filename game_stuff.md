@@ -45,8 +45,11 @@ class PlayerAssets():
 	inventory = []
 	
 
-## Dungeon List
+## gassets.dungeons
 	dungeonlist = ["The lost pit", "Cave of Horrors", "Divildeia Dungeon", The Dungeon of The Lost Norse Gods", "Dungeon of Nihilveia"]
+
+## gassets.locats
+	locations = ['Green Field', 'Rabbit Island', 'Valley of Death']
 
 ## Player gear sorting:
 	indexes - gearname
@@ -61,7 +64,9 @@ class PlayerAssets():
 	8 - custom
 
 
-## Monsters (monster dicts will be in order of  ('name':multiplier)) :
-	greenfieldmob = {'zombie':1, 'boar':1, 'slime':1, 'giant frog':2, 'slithery snake':1, 'frenzy cow' : 2}
-	rabbit_islandmobs = {'killer rabbit' : , 'giant rabbit', 'evil easter bunny', 'bad hare', 'corrupted bunny'}
-	valleyofdeathmob = ['skeleton', 'undead', 'giant earth worm', 'scorpio gigantia', 'evil bandits', 'horsemen']
+## gassets.locmobs (monster dicts will be in order of  ('name':multiplier)) :
+	{
+	greenfieldmob = {'zombie':1, 'boar':1, 'slime':1, 'giant frog':2, 'slithery snake':1, 'frenzy cow' : 2},
+	rabbit_islandmobs = {'killer rabbit' : , 'giant rabbit', 'evil easter bunny', 'bad hare', 'corrupted bunny'},
+	valleyofdeathmob = {'skeleton', 'undead', 'giant earth worm', 'scorpio gigantia', 'evil bandits', 'horsemen'}
+	}
