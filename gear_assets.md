@@ -39,14 +39,8 @@ gear_data = {
 }
 ```
 ## gear ids (since everything is not separated thus id is used for detection for type of gear)
-```
-swords - 0
-helmet - 1
-chestplate - 2
-leggings - 3
-boots - 4
-rings - 5
-amulets - 6
+```python
+gassets.gearid = {weapon : id}
 ```
 
 ## Item_Assets (potions and buff items)
