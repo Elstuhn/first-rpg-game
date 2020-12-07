@@ -1,3 +1,5 @@
+#Fix equip function changing stats, dungeon stuff(boss initialize)
+
 import pickle
 import os
 import shutil
@@ -39,7 +41,7 @@ class gameassets():
 	def changelocation(self):
 		location = pstats.loc.split()[0].lower()
 		for _ in self.locmob:
-			if location in _.lower():
+			if location in _:
 				self.mobs = self.locmob[_]
 			
 class PlayerAssets():
@@ -50,6 +52,7 @@ class PlayerAssets():
 		self.consumables = consumables
 	
 	def equip(self, num : int):
+		count = 0
 #num is the number of the equipment in the inventory
 #inventory will be enumerated so order will start from 0
 		try:
@@ -61,10 +64,12 @@ class PlayerAssets():
 		elif gearequip in self.gear:
 			return "You already have that equipped!"
 
-		equipmentid = gassets.gearid[gearequip][0]
+		equipmentid = gassets.gearid[gearequip]
 		#equipmentid access gear_id dictionary to retrieve string form of equipment's id
 		for i in self.gear:
-			if gassets.gearid[i][0] == equipmentid:
+			if gassets.gearid[i] == equipmentid:
+				if 1 - gassets.gear[id] > 0:
+					
 		#gearid[i] has a possibility of being None therefore gearid[None] will be hashmapped to -1
 				ver = input(f"Would you like to unequip {self.gear(equipmentid)} to equip {gearequip}? (yes/no)\n")
 				while not ver.lower() in ['yes', 'no']:
@@ -183,7 +188,9 @@ def travel():
 		print("Locations:")
 		for locations in gassets.locats:
 			print("-", locations)
-		location = input("Where would you like to travel to? (Case Sensitive)\n")
+		location = input("Where would you like to travel to? (Case Sensitive/Press enter to exit)\n")
+		if location == "":
+			return
 		if not location in gassets.locats:
 			print("\nInvalid location...")
 			continue
@@ -304,6 +311,16 @@ def battle():
 			unconsume(unconsume_)
 			return
 		
+def getboss():
+	count = 0
+	true = 0
+	for i in pstats.dun:
+		if i == None:
+			true = count
+		count += 1
+	if true == 0:
+		return [0, None]
+	return [true, gassets.dungeons[true-1]]
 			
 def consume(item):
 	returnlis = []
