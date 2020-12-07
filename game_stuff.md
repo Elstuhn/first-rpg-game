@@ -26,7 +26,7 @@ class PlayerStats():
 	def = 15
 	atk = 5
 	agility: 4
-	dung = [None, None, None, None etc]
+	dungeon = [None, None, None, None etc]
 	location = Green Fields
 	curhp for battles, functions will be made in the class to calculate curhp
 	
@@ -61,7 +61,7 @@ class gameassets():
 ```
 
 ## gassets.dungeons
-	dungeonlist = ["The lost pit", "Cave of Horrors", "Divildeia Dungeon", The Dungeon of The Lost Norse Gods", "Dungeon of Nihilveia"]
+	dungeonlist = ["The Lost Pit", "Cave of Horrors", "Divildeia Dungeon", "The Dungeon of The Lost Norse Gods", "Dungeon of Nihilveia"]
 
 ## gassets.locats
 	locations = ['Green Field', 'Rabbit Island', 'Valley of Death']
@@ -69,7 +69,11 @@ class gameassets():
 ## Player gear sorting:
 	indexes - gearname
 	0 - weapon (staff, sword, bow, orbs)
-	1 - second weapon (similar to first weapon slot but has some sort of prerequisite to be used)
+	(0.2 - staff
+	0.4 - sword
+	0.6 - bow
+	0.8 - orbs)
+	1 - second weapon (Must complete Divildeia Dungeon first)
 	2 - helmet
 	3 - chestplate
 	4 - leggings
@@ -81,7 +85,12 @@ class gameassets():
 
 ## gassets.locmobs (monster dicts will be in order of  ('name':multiplier)) :
 	{
-	greenfieldmob = {'zombie':1, 'boar':1, 'slime':1, 'giant frog':2, 'slithery snake':1, 'frenzy cow' : 2},
-	rabbit_islandmobs = {'killer rabbit' : , 'giant rabbit', 'evil easter bunny', 'bad hare', 'corrupted bunny'},
-	valleyofdeathmob = {'skeleton', 'undead', 'giant earth worm', 'scorpio gigantia', 'evil bandits', 'horsemen'}
+	'greenfieldmob' : {'zombie':1, 'boar':1, 'slime':1, 'giant frog':2, 'slithery snake':1, 'frenzy cow' : 2},
+	'rabbit_islandmobs' : {'killer rabbit' : , 'giant rabbit', 'evil easter bunny', 'bad hare', 'corrupted bunny'},
+	'valleyofdeathmob' : {'skeleton', 'undead', 'giant earth worm', 'scorpio gigantia', 'evil bandits', 'horsemen'},
+	'The Lost Pit' : ['Gashadokuro', 1.2],
+	'Cave of Horrors' : ['Giant Turantula', 1.4],
+	'Divildeia Dungeon' : ['Corrupted Angel', 1.5],
+	'The Dungeon of The Lost Norse Gods' : ['Iron Giant', 1.7],
+	'Dungeon of Nihilveia'
 	}
