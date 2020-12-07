@@ -10,13 +10,13 @@
 ## pstats class 
 ```python
 class PlayerStats():
-	def __init__(self, hp : int, def : int, attack : int, agility : int, dung : list, location : str):
+	def __init__(self, hp : int, def : int, attack : int, agility : int, dungeon : list, location : str):
 		self.hp = hp
 		self.def = def
 		self.atk = attack
 		self.agility = agility
 		self.curhp = hp
-		self.dun = dung
+		self.dun = dungeon
 		self.loc = location
 ```
 
@@ -33,10 +33,11 @@ class PlayerStats():
 ## class PlayerAssets
 ```python
 class PlayerAssets():
-	def __init__(self, gold : int, gear : list, inventory : list):
+	def __init__(self, gold : int, gear : list, inventory : dict, consumables : dict):
 		self.gold = gold
 		self.gear = gear
 		self.inv = inventory
+		self.consumables = consumables
 ```
 	
 ## playerassets initialization
@@ -44,6 +45,20 @@ class PlayerAssets():
 	gear= [None, None, None, None, None, None]
 	inventory = []
 	
+## Game Assets Class
+```python
+class gameassets():
+	def __init__(self, locmobs : dict, locations : list, dungeons : list, gear_data : dict, gear_id : dict):
+		self.locmob = locmobs
+		self.locats = locations
+		self.geardata = gear_data
+		self.dungeons = dungeons
+		self.gearid  = gear_id
+		var = pstats.loc.split()[0].lower()
+		for _ in self.locmob:
+			if var in _.lower():
+				self.mobs = self.locmob[_]
+```
 
 ## gassets.dungeons
 	dungeonlist = ["The lost pit", "Cave of Horrors", "Divildeia Dungeon", The Dungeon of The Lost Norse Gods", "Dungeon of Nihilveia"]
