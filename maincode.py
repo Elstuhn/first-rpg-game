@@ -26,15 +26,33 @@ class gameassets():
 			if var in _.lower():
 				self.mobs = self.locmob[_]
 				
-	def randmob(self) -> Mob:
-		mob = random.choice(list(self.mobs)) #turns self.mob into a list and picks a random key
+	def randmob(self, dungeon : bool = False, boss : bool = False) -> Mob:
 		stats = ['hp', 'atk', 'def', 'agility']
 		count = 0
-		for i in stats:
-			stat = eval(f"random.randint(pstats.{i}*0.95, pstats.{i}*1.05)")
-			stat *= self.mobs[mob]
-			stats[count] = stat
-			counnt += 1
+		if boss:
+			boss_stuff = getboss()
+			boss_stuff = gassets.locats[boss_stuff[1]] #access [bossname, multiplier]
+			mob = boss_stuff[0]
+			multiplier = boss_stuff[1]
+			for i in stats:
+				stat = eval(f"random.randint(pstats.{i}*1.1, pstats.{i}*1.25)")
+				stat += 60
+				stat *= multiplier
+				stats[count] = stat
+				count += 1
+		else:
+			if dungeon:
+				min_ = 1.05
+				max_ = 1.2
+			else:
+				min_ = 0.95
+				max_ = 1.05
+			mob = random.choice(list(self.mobs)) #turns self.mob into a list and picks a random key
+			for i in stats:
+				stat = eval(f"random.randint(pstats.{i}*min_, pstats.{i}*max_)")
+				stat *= self.mobs[mob]
+				stats[count] = stat
+				count += 1
 		#mobs will have plus minus 5% of player stats
 		return Mob(mob, *stats) 
 	
