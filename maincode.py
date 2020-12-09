@@ -38,12 +38,13 @@ class gameassets():
 				stat = eval(f"random.randint(pstats.{i}*1.1, pstats.{i}*1.25)")
 				stat += 60
 				stat *= multiplier
+				stat = round(stat)
 				stats[count] = stat
 				count += 1
 		else:
 			if dungeon:
 				min_ = 1.05
-				max_ = 1.2
+				max_ = 1.15
 			else:
 				min_ = 0.95
 				max_ = 1.05
@@ -51,6 +52,7 @@ class gameassets():
 			for i in stats:
 				stat = eval(f"random.randint(pstats.{i}*min_, pstats.{i}*max_)")
 				stat *= self.mobs[mob]
+				stat = round(stat)
 				stats[count] = stat
 				count += 1
 		#mobs will have plus minus 5% of player stats
@@ -68,6 +70,35 @@ class PlayerAssets():
 		self.gear = gear
 		self.inv = inventory
 		self.consumables = consumables
+		
+	def addstat(self, gear):
+		_ = False
+		geardata = gassets.geardata
+		for i in geardata:
+			if _:
+				continue
+			elif gear in geardata[i]:
+				gearstats = geardata[i][gear]
+				_ = True
+		gearstats = gearstats.split()
+		for i in gearstats:
+			_ = i.split(':')
+			eval(f"pstats.{_[0]}+={i[1]}")
+			
+	def removestat(self, gear):
+		_ = False
+		geardata = gassets.geardata
+		for i in geardata:
+			if _:
+				continue
+			elif gear in geardata[i]:
+				gearstats = geardata[i][gear]
+				_ = True
+		gearstats = gearstats.split()
+		for i in gearstats:
+			_ = i.split(':')
+			eval(f"pstats.{_[0])-={i[1]}")
+						   
 	
 	def equip(self, num : int):
 		count = 0
@@ -83,11 +114,15 @@ class PlayerAssets():
 			return "You already have that equipped!"
 
 		equipmentid = gassets.gearid[gearequip]
-		#equipmentid access gear_id dictionary to retrieve string form of equipment's id
+		#equipmentid access gear_id dictionary to retrieve equipment's id(string)
+		count = 0
 		for i in self.gear:
+			count+=1
 			if gassets.gearid[i] == equipmentid:
-				if 1 - gassets.gear[id] > 0:
-					
+				if (1 - gassets.gear[id] > 0) and (getboss()[0] > 2):
+					count+=1
+					if count == 1:
+						continue
 		#gearid[i] has a possibility of being None therefore gearid[None] will be hashmapped to -1
 				ver = input(f"Would you like to unequip {self.gear(equipmentid)} to equip {gearequip}? (yes/no)\n")
 				while not ver.lower() in ['yes', 'no']:
@@ -220,19 +255,7 @@ def travel():
 		break
 	print(f"\nTravelled to {location}!")
 	return f"Travelled to {location}"
-			
-def weaponadd(weapon):
-	count = 0
-	for i in passets.inv:
-		if weapon in i
-			if i[1] > 1:
-				i[1] -= 1
-			else:
-				del passets.inv[count]
-			return
-		count += 1
-	passets.inv.append([weapon, 1])
-		
+					
 
 def clearscreen():
 	print("\n"*35)
@@ -340,6 +363,21 @@ def getboss():
 		return [0, None]
 	return [true, gassets.dungeons[true-1]]
 			
+						   
+def weaponswap(weapon):
+	count = 0
+	for i in passets.inv:
+		if weapon in i
+			if i[1] > 1:
+				i[1] -= 1
+			else:
+				del passets.inv[count]
+			return
+		count += 1
+	passets.inv.append([weapon, 1])
+						   
+def						   
+						   
 def consume(item):
 	returnlis = []
 	stats = passets.consumables[item]
