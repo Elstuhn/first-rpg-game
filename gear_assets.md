@@ -5,34 +5,34 @@ gear_data = {
   'greenfield' : {
     'starter sword' : [
       'attack:9\
-      defense:1'
+       defense:1'
     ],
 
     'starter helmet' : [
       'hp:10\
-      defense:10'
+       defense:10'
     ],
 
     'starter chestplate' : [
       'hp:20\
-      defense:15'
+       defense:15'
     ],
 
     'starter leggings' : [
       'hp:15\
-      defense: 10\
-      dodge:5'
+       defense: 10\
+       dodge:5'
     ],
 
     'starter boots' : [
       'hp:10\
-      defense:5\
-      dodge:9'
+       defense:5\
+       dodge:9'
     ]
 
     'iron sword' : [
       'attack:15\
-      defense:3'
+       defense:3'
     ]
     'iron boot'
   }
