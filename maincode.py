@@ -65,7 +65,7 @@ class gameassets():
 				self.mobs = self.locmob[_]
 			
 class PlayerAssets():
-	def __init__(self, gold : int, gear : list, inventory : dict, consumables : dict):
+	def __init__(self, gold : int, gear : list, inventory : list, consumables : dict):
 		self.gold = gold
 		self.gear = gear
 		self.inv = inventory
@@ -130,20 +130,16 @@ class PlayerAssets():
 				if ver.lower() == 'no':
 					return
             
-		gearunequip = self.gear.pop(equipmentid)
+		gearunequip = self.gear[count-1]
 		gearequip = self.inv[num][0]
-		self.gear[equipmentid] = gearequip
+		self.gear[count-1] = gearequip
 		equipnum = self.inv[num][1]
 		if equipnum>1:
 			self.inv[num][1] -=1
 		else:
 			del self.inv[num]
 			#equipment ids correlate with pgear index
-		for _ in self.inv:
-			if gearunequip in _:
-				_[1] +=1
-				return f"Equipped {gearequip}!"		
-		self.inv.append([gearunequip, 1])
+		weaponadd(gearunequip)
 		return f"Equipped {gearequip}!"	
 			
 	def showinv(self):
@@ -364,19 +360,18 @@ def getboss():
 	return [true, gassets.dungeons[true-1]]
 			
 						   
-def weaponswap(weapon):
-	count = 0
-	for i in passets.inv:
-		if weapon in i
-			if i[1] > 1:
-				i[1] -= 1
-			else:
-				del passets.inv[count]
-			return
-		count += 1
-	passets.inv.append([weapon, 1])
-						   
-def						   
+def additems(*items):
+	for i in items:
+		_ = False				   
+		for z in passets.inv:
+			if _:
+				continue
+			elif z[0] == i:
+				_ = True
+				z[1]+=1
+		if not _:
+			passets.inv.append([i, 1])
+						 
 						   
 def consume(item):
 	returnlis = []
