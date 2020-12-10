@@ -129,9 +129,11 @@ class PlayerAssets():
 					ver = input(f"Would you like to unequip {self.gear(equipmentid)} to equip {gearequip}? (yes/no)\n")
 				if ver.lower() == 'no':
 					return
-            
-		gearunequip = self.gear[count-1]
+          
+		gearunequip = self.gear[count-1]                 
 		gearequip = self.inv[num][0]
+        self.removestat(gearunequip)                  
+        self.addstat(gearequip)                  
 		self.gear[count-1] = gearequip
 		equipnum = self.inv[num][1]
 		if equipnum>1:
