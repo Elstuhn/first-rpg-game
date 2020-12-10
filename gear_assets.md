@@ -43,10 +43,13 @@ gear_data = {
 gassets.gearid = {weapon : id}
 ```
 
-## Item_Assets (potions and buff items)
+## consumables (potions and buff items)
 ```python
 item_assets = {
   'greenfield' : {
+    'small health potion' : []
+    }
+}
 
 
 
