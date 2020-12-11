@@ -26,7 +26,7 @@ class gameassets():
 			if var in _.lower():
 				self.mobs = self.locmob[_]
 				
-	def randmob(self, dungeon : bool = False, boss : bool = False) -> Mob:
+	def randmob(self, dungeon : bool, boss : bool) -> Mob:
 		stats = ['hp', 'atk', 'def', 'agility']
 		count = 0
 		if boss:
@@ -157,8 +157,8 @@ class PlayerAssets():
 	def checkconsumables(self, num):
 		_ = self.inv[num]
 		item = _[0]
-		for _ in self.consumables:
-			for i in self.consumables[_]:
+		for _ in self.consumables: #iterate through locations
+			for i in self.consumables[_]: #iterate through consumables of each location
 				if i == item:
 					return [True, item]
 		return [False, None]
@@ -182,7 +182,8 @@ class PlayerStats():
 	def dmgtake(self, health : int) -> bool:
 		self.curhp -= health
 		if self.curhp <= 0:
-			moneylost = random.randint(passets.gold*0.2, passets.gold*0.35)
+			moneylost = random.randint(passets.gold*0.05, passets.gold*0.1)
+			moneylost = round(moneylost)
 			print(f"You passed out and lost {moneylost}!")
 			passets.gold -= moneylost
 			print("You were sent to the nearest village and revived.")
@@ -261,27 +262,34 @@ def clearscreen():
 def battlerewards(rewardstack : int):
 	rewards = []
 	location = pstats.loc.split()[0].lower()
-	gold = random.randint(passets.gold*0.01, passets.gold*0.12)
+	gold = random.randint(passets.gold*0.05, passets.gold*0.15)
 	gold += 10*rewardstack
+	gold = round(gold)
 	rewards.append(f"{gold} gold")
 	for i in gassets.geardata:
 		if location in i:
 			weapons = gassets.geardata[i]
+			location = i
 			
+			
+	#weapon rewards
 	for i in range(rewardstack):
 		weapon = random.choice(list(weapons))
+		additems(weapon)
 		rewards.append(weapon)
-		weaponadd(weapon)
-	consumables = passets.consumablelist()
+						   
+	consumables = passets.consumables[location]
+	#consumable rewards
 	for i in range(rewardstack):
 		_ = random.choice(list(consumables))
+		additems(_)
 		rewards.append(_)
 		weaponadd(_)
 		
 	return rewards
 		
 	
-def battle():
+def battle(dungeon : bool = False, boss : bool = False):
 	unconsume_ = []
 	#player turn
 	weapon = gear_id[pstats.gear[0]][1] #Gets the weapon type of current equipped weapon
@@ -292,7 +300,7 @@ def battle():
 	elif weapon == "staff":
 		message = staffmessage
 #Generation of hp, atk, def and agility for monster encounters are naively based on percentages of player stats
-	mob = gassets.randmob() #Returns a Mob class instance
+	mob = gassets.randmob(dungeon, boss) #Returns a Mob class instance
 	print(f"You have encountered a {mob.name}!")
 	print(f"Mob hp: {mob.hp}")
 	while True:
@@ -322,7 +330,7 @@ def battle():
 				unconsume(unconsume_)
 				print("Battle rewards:")
 				print('\n'.join(br))
-				return
+				return 1
 		
 		else:
 			passets.showinv()
@@ -334,7 +342,7 @@ def battle():
 				print("Invalid Input.")
 				choice = input("What would you like to do?\nType in the item number you want to use or just press enter to cancel\n") 
 			if choice == "":
-				return
+				return		   
 			item = passets.checkconsumables(choice)[1]
 			_ = consume(item)
 			unconsume_.append(_)
@@ -348,18 +356,16 @@ def battle():
 		ptake = pstats.dmgtake(dmgdone)
 		if ptake:
 			unconsume(unconsume_)
-			return
+			return 0
 		
 def getboss():
 	count = 0
-	true = 0
-	for i in pstats.dun:
+	true = -1
+	for i in pstats.dun:		
 		if i == None:
 			true = count
 		count += 1
-	if true == 0:
-		return [0, None]
-	return [true, gassets.dungeons[true-1]]
+	return [true, gassets.dungeons[true]]
 			
 						   
 def additems(*items):
@@ -440,6 +446,34 @@ def load_game():
 		gassets = pickle.load(readfile)
 def credits():
 	print("\n\nGame Development\n-Elston\n\nDirector\n-Elston\n\nScripter\n-Elston\n\nAsset Makers\n-Elston")
+						   
+						   
+def challenge():
+	entrances = ["dimly lit descending spiral stairwell", "really spacious and dimly lit stone brick room which looks to be about the size of 2 football fields by 2 football fields",\
+				 "pitch black cave and started walking until you came to a large room covered in moss and stone"]
+	action = ["carefully crept forward", "carefully walked forward", "slowly walked forward"]
+	_ = getboss()
+	curdung = _[0]
+	ver = input(f"Are you sure you are ready to enter '{_[1]}'? (Yes/No)\n")
+	while ver.lower() not in ["yes", "no"]:
+		ver = input(f"Are you sure you are ready to enter '{_[1]}'? (Yes/No)\n")
+		if ver.lower() == "no":
+			return 0
+	place = random.choice(entrances)
+	actiontaken = random.choice(action)
+	print(f"You enter a {place} and you {actiontaken}")
+	print("You felt a presence of evilness in the dungeon. The monsters have been powered by this aura!")
+	for i in range(random.randint(3, 4)):
+		result = battle(True, False)
+		if not result:
+			print("Looks like you suck too much. Try getting an artifact or something bitch")
+			return
+	print("You enter the boss lair...")
+	result = battle(False, True)
+	if not result:
+		print("Looks like you suck too much. Try getting an artifact or drinking more health pots bitch")
+	pstats.dun[curdung] = 1
+	print("Ayyy you beat the boss!")
 
 def menuscreen():
 	space = "|" + " "*25 + "|"
@@ -495,35 +529,42 @@ def main():
 		options = input("Please enter your command\nType help for commands.")
 		options = options.lower()
 		if options == "help":
-			print("Commands:\nexplore - explore a random area and possibly find treasure\nshowinventory - shows your inventory\nshowgear - shows your currently equipped gear\n\
-				dungeons - show all dungeons\ncompleteddungeons - shows your cleared dungeons\nchallenge - challenge the next available dungeon\nequip - equip a new gear\n\
+			print("Commands:\nexplore - explore a random area and possibly find treasure\nshowinv - shows your inventory\nshowgear - shows your currently equipped gear\n\
+				dungeons - show all dungeons\ncompdung - shows your cleared dungeons\nchallenge - challenge the next available dungeon\nequip - equip a new gear\n\
 				go to the nearest village and heal")
 		elif options == "explore":
 			areas = ["ruin", "cave", "valley", "meadow"]
-			action = ["walking around", "exploring", "running around", "looking around"]
+			action = ["walking around", "exploring", "running around", "looking around", "peeping around"]
 			area = random.choice(areas)
 			action = random.choice(action)
 			print(f"You ended up finding a {area}.\nYou started {action} in the {area}")
-			for i in range(random.randint(2, 4)):
-				battle()
-				print(f"You continue {action}")
-				time.sleep(1.3)
+			for i in range(random.randint(2, 3)):
+				battleresult = battle()
+				if battleresult:
+					print(f"You continue {action}")
+				else:
+					print(f"You decided to go back to the {area} to continue {action}")
+				time.sleep(1)
 			if random.randint(1, 4):
 				print("You found a treasure chest!\nYou open it slowly...")
 				br = battlerewards(2)
 				print("You found..")
 				print('\n'.join(br))
-		elif options == "showinventory":
+		elif options == "showinv":
 			passets.showinv()
 		elif options == "showgear":
 			print("Currently equipped gear")
 			passets.showgear()
 		elif options == "dungeons"
-			print(gassets.dungeons)
-		elif options == "completeddungeons":
+			print("Dungeons:")
+			for i in gassets.dungeons:
+				print(i)
+		elif options == "compdung":
 			count = 0
 			for i in pstats.dun:
 				if not i == None:
 					count+=1
 			for i in range(count):
 				print(gassets.dungeons[i])
+		elif options == "challenge":
+		
