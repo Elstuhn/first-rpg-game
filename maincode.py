@@ -1,5 +1,3 @@
-#Fix equip function changing stats, dungeon stuff(boss initialize)
-
 import pickle
 import os
 import shutil
@@ -531,7 +529,7 @@ def main():
 		if options == "help":
 			print("Commands:\nexplore - explore a random area and possibly find treasure\nshowinv - shows your inventory\nshowgear - shows your currently equipped gear\n\
 				dungeons - show all dungeons\ncompdung - shows your cleared dungeons\nchallenge - challenge the next available dungeon\nequip - equip a new gear\n\
-				go to the nearest village and heal")
+				heal - go to the nearest village and heal")
 		elif options == "explore":
 			areas = ["ruin", "cave", "valley", "meadow"]
 			action = ["walking around", "exploring", "running around", "looking around", "peeping around"]
@@ -567,4 +565,13 @@ def main():
 			for i in range(count):
 				print(gassets.dungeons[i])
 		elif options == "challenge":
+			challenge()
+		elif options == "equip":
+			passets.showinv()
+			print("\n")
+			num = input("Enter the item number you want to equip\n")
+			print(equip(num))
+		else:
+			print("You went to the nearest village and got healed by the local shaman!")
+			pstats.curhp = pstats.hp			   
 		
